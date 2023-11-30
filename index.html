@@ -1,87 +1,100 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Random Ai News</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <!-- Option 1: Include in HTML -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.2.2/font/bootstrap-icons.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
-            background: #198754;
-        }
-        h1 {
-            margin-bottom: 20px;
-        }
-        #randomJoke {
-            margin: 20px auto;
-            max-width: 80%;
-        }
-        #getRandomBtn {
-            padding: 10px 20px;
-            font-size: 16px;
-        }
-        .card {
-    display: inline-block;
-    height: fit-content;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width" />
+  <title>Ai News</title>
+  <link rel="stylesheet" href="style.css" />
+<style>
+#test{
+//height:100vh;
+width:100%;
+//overflow:scroll;
 }
-body.d-flex.justify-content-center.align-self-center {
-    height: 100vh;
+#test2{
+//height:10000vh;
+width:100%;
+//background:red;
 }
-a svg {
-    float: right;
-    margin-top:5px;
+.news{
+margin:10px;
+border: 1px solid black;
+padding:10px;
 }
-    </style>
+.news a{
+float:right;
+}
+.red{
+background:red;
+color:white;
+}
+.green{
+background:green;
+color:white;
+}
+</style>
 </head>
-<body class="d-flex justify-content-center align-self-center"><div class="card align-self-center">
-    <div class="card-header">
-        Random Ai News
-    </div>
-    <div class="card-body">
-      <h5 class="card-title"></h5>
-      <p class="card-text mt-0"><div class="alert alert-primary"  id="randomJoke" role="alert">
-        <!-- A simple primary alert—check it out! -->
-      </div></p>
-      <button class="btn btn-primary" id="getRandomBtn">Get Random News</button>
-    </div>
-  </div>
-    <!-- <h1>Random Jokes</h1>
-    <p id="randomJoke"></p>
-    <button id="getRandomBtn">Get Random Joke</button> -->
+<body>
+  <h1>Ai News</h1>
+  <div id="test"><div id="test2"></div></div>
+
+  <script src="script.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-          function get_news(){
-                           // Use the Chuck Norris Jokes API to fetch a random joke
-                           $.get("https://pxiaoer-papers.hf.space/?__theme=light", function(data) {
 
+<script>
+    $(document).ready(function() {
+
+          
+                           
+                           $.get("https://pxiaoer-papers.hf.space/?__theme=light",function(data) {
+//console.log(data);
 
 var array = data.split('https://arxiv');
-console.log(array);
-var random = Math.floor(Math.random() * array.length);
+//console.log(array);
+$.each(array,function(index,data2){
+ //console.log(data2);
+ var array2 = data2.split('\\');
 
-var array2 = array[random].split('\\');
-var array3 = array[random].split(',');
-console.log('https://arxiv' + array2[0]);
-console.log(array3[1]);
+ var array3 = data2.split(',');
 
+var array4 = array3[1].replace(/\"/g, "");
+var array5 = array2[0].replace(/\"/g, "");
+//console.log(array4);
 
+$("#test2").append('<div class="news" >'+array4 + '<a target="_blank" href="https://arxiv'+array5+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/></svg></a>  </div>');
 
-$("#randomJoke").html(array3[1] + ' <a target="_blank" href="https://arxiv'+array2[0]+'"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/><path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/></svg></a>');
 });
-          }
 
-          $('#getRandomBtn').click(function(){
-            get_news();
-          });
+});
+          
+
+     
+
+
+function news(){
+var x= 0;
+var news_length = $('.news').length;
+console.log(news_length);
+while(x<5){
+var random = Math.floor((Math.random() * news_length) + 1);
+console.log(random);
+$('.news').eq(random).addClass('red');
+
+x++;
+}
+
+}
+setTimeout(news,2000);
+
+$('body').on('click','.red',function(){
+$(this).removeClass('red');
+$(this).addClass('green');
+news();
+});
 
         });
-    </script>
+    
+</script>
 </body>
 </html>
